@@ -3,3 +3,6 @@ fun:
 
 clean:
 	$(RM) *.o
+
+check:
+	scan-build-10 make
