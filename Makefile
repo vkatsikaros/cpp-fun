@@ -1,4 +1,4 @@
-fun:
+fun: fun.cpp
 	g++ -std=c++11 -Wall -pthread fun.cpp -o fun
 
 clean:
