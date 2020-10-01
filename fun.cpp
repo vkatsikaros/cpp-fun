@@ -4,12 +4,12 @@
  
 void foo() 
 {
-  // do stuff...
+  std::cout << __FUNCTION__ << "\n";
 }
 
 void bar(int x)
 {
-  // do stuff...
+  std::cout << __FUNCTION__ << "\n";
 }
 
 int main() 
