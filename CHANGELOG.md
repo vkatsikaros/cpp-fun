@@ -47,3 +47,7 @@ main (140500647270208bar), foo and bar now execute concurrently...
 foo 140500647266048
 foo and bar completed.
 ```
+
+Tried several tricks, but it seems I either don't get some definitions or it's complicated. In either case, a problem for later.
+
+I ended up with v0.1 but using `endl`.
