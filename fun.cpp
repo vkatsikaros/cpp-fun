@@ -4,12 +4,12 @@
  
 void foo() 
 {
-  std::cout << __FUNCTION__ << " " << std::this_thread::get_id() << std::endl;
+  std::cout << __FUNCTION__ << std::endl;
 }
 
 void bar(int x)
 {
-  std::cout << __FUNCTION__ << " " << std::this_thread::get_id() << std::endl;
+  std::cout << __FUNCTION__ << std::endl;
 }
 
 int main() 
@@ -17,7 +17,7 @@ int main()
   std::thread first (foo);     // spawn new thread that calls foo()
   std::thread second (bar,0);  // spawn new thread that calls bar(0)
 
-  std::cout << "main (" << std::this_thread::get_id() << "), foo and bar now execute concurrently..." << std::endl;
+  std::cout << "main , foo and bar now execute concurrently..." << std::endl;
 
   // synchronize threads:
   first.join();                // pauses until first finishes
