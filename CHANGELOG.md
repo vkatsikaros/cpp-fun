@@ -22,3 +22,28 @@ bar
 foo
 foo and bar completed.
 ```
+
+v0.2
+====
+Additionally print the thread id. It messes up even more the output (buffering etc).
+
+Can we fix this:
+```
+$ ./fun
+bar 139651505256192
+foo 139651513648896
+main (139651513653056), foo and bar now execute concurrently...
+foo and bar completed.
+
+$ ./fun
+main (barfoo  140355060897600140355060893440), foo and bar now execute concurrently...
+140355052500736
+
+foo and bar completed.
+
+$ ./fun
+main (140500647270208bar), foo and bar now execute concurrently...
+ 140500638873344
+foo 140500647266048
+foo and bar completed.
+```
