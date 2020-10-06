@@ -2,28 +2,23 @@
 #include <iostream>       // std::cout
 #include <thread>         // std::thread
  
-void foo() 
+void func(std::string label, int n = 1)
 {
-  std::cout << __FUNCTION__ << std::endl;
-}
-
-void bar(int x)
-{
-  std::cout << __FUNCTION__ << std::endl;
+  std::cout << label << " is alive!" << std::endl;
+  std::this_thread::sleep_for(std::chrono::seconds(n));
 }
 
 int main() 
 {
-  std::thread first (foo);     // spawn new thread that calls foo()
-  std::thread second (bar,0);  // spawn new thread that calls bar(0)
+  std::thread first (func, "a", 1);     // spawn new thread that calls foo()
+  std::thread second (func, "b", 10);   // spawn new thread that calls bar(0)
 
-  std::cout << "main , foo and bar now execute concurrently..." << std::endl;
+  std::cout << "main , first and second now execute concurrently..." << std::endl;
 
-  // synchronize threads:
   first.join();                // pauses until first finishes
   second.join();               // pauses until second finishes
 
-  std::cout << "foo and bar completed.\n";
+  std::cout << "first and second completed" << std::endl;
 
   return 0;
 }
