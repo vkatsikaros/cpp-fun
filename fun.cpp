@@ -15,8 +15,19 @@ int main()
 
   std::cout << "main , first and second now execute concurrently..." << std::endl;
 
-  first.join();                // pauses until first finishes
-  second.join();               // pauses until second finishes
+  // The main was previously blocking until first and second finished.
+  // Removing join is excpected to break some things. For example main
+  // will finish before second.
+  // So this happens:
+  //
+  // $ ./fun
+  // main , first and second now execute concurrently...b is alive!
+  //
+  // first and second completed
+  // terminate called without an active exception
+  // a is alive!
+  // Aborted (core dumped)
+
 
   std::cout << "first and second completed" << std::endl;
 
