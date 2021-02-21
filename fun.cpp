@@ -5,32 +5,33 @@
 #include <algorithm>      // std::fill
 #include <string>
 
-const int len = 100;
+const int len = 50;
 std::string s;
 
 void writer(const char* x)
 {
-  for(int i = 0; i < len; i++)
+  for(int i = 0; i < len-1; i++)
   {
-    std::this_thread::sleep_for(std::chrono::milliseconds(rand() % 500 + 1));
-    s.replace(i,i,x);
+    std::this_thread::sleep_for(std::chrono::milliseconds(rand() % 50 + 1));
+    s.replace(i,1,x);
   }
 }
 
 void reader()
 {
+  std::this_thread::sleep_for(std::chrono::milliseconds(rand() % 250 + 1));
   std::cout << s << std::endl;
 }
 
 int main() 
 {
   s.reserve(len);
-  writer("a");
+  writer("0");
   reader();
 
-  std::thread write_a(writer, 'a');
-/*  std::thread read_a(reader);
-  std::thread write_b(writer, 'b');
+  std::thread write_a(writer, "a");
+  std::thread read_a(reader);
+  std::thread write_b(writer, "b");
   std::thread read_b(reader);
 
   write_a.join();
@@ -38,5 +39,4 @@ int main()
   read_a.join();
   read_b.join();
   return 0;
-  */
 }
