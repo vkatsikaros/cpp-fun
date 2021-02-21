@@ -1,35 +1,42 @@
 // thread example
 #include <iostream>       // std::cout
 #include <thread>         // std::thread
- 
-void func(std::string label, int n = 1)
+#include <stdlib.h>       // rand
+#include <algorithm>      // std::fill
+#include <string>
+
+const int len = 100;
+std::string s;
+
+void writer(const char* x)
 {
-  std::cout << label << " is alive!" << std::endl;
-  std::this_thread::sleep_for(std::chrono::seconds(n));
+  for(int i = 0; i < len; i++)
+  {
+    std::this_thread::sleep_for(std::chrono::milliseconds(rand() % 500 + 1));
+    s.replace(i,i,x);
+  }
+}
+
+void reader()
+{
+  std::cout << s << std::endl;
 }
 
 int main() 
 {
-  std::thread first (func, "a", 1);     // spawn new thread that calls foo()
-  std::thread second (func, "b", 10);   // spawn new thread that calls bar(0)
+  s.reserve(len);
+  writer("a");
+  reader();
 
-  std::cout << "main , first and second now execute concurrently..." << std::endl;
+  std::thread write_a(writer, "a");
+/*  std::thread read_a(reader);
+  std::thread write_b(writer, 'b');
+  std::thread read_b(reader);
 
-  // The main was previously blocking until first and second finished.
-  // Removing join is excpected to break some things. For example main
-  // will finish before second.
-  // So this happens:
-  //
-  // $ ./fun
-  // main , first and second now execute concurrently...b is alive!
-  //
-  // first and second completed
-  // terminate called without an active exception
-  // a is alive!
-  // Aborted (core dumped)
-
-
-  std::cout << "first and second completed" << std::endl;
-
+  write_a.join();
+  write_b.join();
+  read_a.join();
+  read_b.join();
   return 0;
+  */
 }
