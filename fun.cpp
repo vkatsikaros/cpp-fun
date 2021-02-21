@@ -28,7 +28,7 @@ int main()
   writer("a");
   reader();
 
-  std::thread write_a(writer, "a");
+  std::thread write_a(writer, 'a');
 /*  std::thread read_a(reader);
   std::thread write_b(writer, 'b');
   std::thread read_b(reader);
