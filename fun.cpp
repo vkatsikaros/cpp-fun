@@ -12,19 +12,21 @@ std::mutex mu;
 
 void writer(const char* x)
 {
-  std::lock_guard<std::mutex> lck(mu);
+  mu.lock();
   for(int i = 0; i < len-1; i++)
   {
     std::this_thread::sleep_for(std::chrono::milliseconds(rand() % 50 + 1));
     s.replace(i,1,x);
   }
+  mu.unlock();
 }
 
 void reader()
 {
-  std::lock_guard<std::mutex> lck(mu);
+  mu.lock();
   std::this_thread::sleep_for(std::chrono::milliseconds(rand() % 250 + 1));
   std::cout << s << std::endl;
+  mu.unlock();
 }
 
 int main() 
