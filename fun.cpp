@@ -4,12 +4,15 @@
 #include <stdlib.h>       // rand
 #include <algorithm>      // std::fill
 #include <string>
+#include <mutex>          // std::mutex, std::lock_guard
 
 const int len = 50;
 std::string s;
+std::mutex mu;
 
 void writer(const char* x)
 {
+  std::lock_guard<std::mutex> lck(mu);
   for(int i = 0; i < len-1; i++)
   {
     std::this_thread::sleep_for(std::chrono::milliseconds(rand() % 50 + 1));
