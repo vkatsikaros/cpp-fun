@@ -22,6 +22,7 @@ void writer(const char* x)
 
 void reader()
 {
+  std::lock_guard<std::mutex> lck(mu);
   std::this_thread::sleep_for(std::chrono::milliseconds(rand() % 250 + 1));
   std::cout << s << std::endl;
 }
